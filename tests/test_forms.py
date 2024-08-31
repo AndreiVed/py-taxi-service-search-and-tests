@@ -1,9 +1,12 @@
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from taxi.forms import DriverCreationForm, DriverLicenseUpdateForm, DriverSearchForm, CarSearchForm, \
-    ManufacturerSearchForm
+from taxi.forms import (
+    DriverCreationForm,
+    DriverLicenseUpdateForm,
+    DriverSearchForm,
+    CarSearchForm,
+    ManufacturerSearchForm)
 from taxi.models import Driver, Car, Manufacturer
 
 
@@ -37,34 +40,54 @@ class DriverFormTests(TestCase):
     def test_license_number_is_too_short(self):
         form_data = {"license_number": "ABC1234"}
         error_message = "License number should consist of 8 characters"
-        DriverFormTests.check_validate_errors(self, form_data=form_data, error_message=error_message)
+        DriverFormTests.check_validate_errors(
+            self,
+            form_data=form_data,
+            error_message=error_message
+        )
 
     def test_license_number_is_too_long(self):
         form_data = {"license_number": "ABC123456"}
         error_message = "License number should consist of 8 characters"
-        DriverFormTests.check_validate_errors(self, form_data=form_data, error_message=error_message)
+        DriverFormTests.check_validate_errors(
+            self,
+            form_data=form_data,
+            error_message=error_message
+        )
 
     def test_license_number_dont_have_prefix_with_three_letters(self):
         form_data = {"license_number": "AB123456"}
         error_message = "First 3 characters should be uppercase letters"
-        DriverFormTests.check_validate_errors(self, form_data=form_data, error_message=error_message)
+        DriverFormTests.check_validate_errors(
+            self,
+            form_data=form_data,
+            error_message=error_message
+        )
 
-    def test_license_number_dont_have_prefix_with_three_uppercase_letters(self):
+    def test_license_number_dont_have_prefix_with_three_uppercase(self):
         form_data = {"license_number": "abc12345"}
         error_message = "First 3 characters should be uppercase letters"
-        DriverFormTests.check_validate_errors(self, form_data=form_data, error_message=error_message)
+        DriverFormTests.check_validate_errors(
+            self,
+            form_data=form_data,
+            error_message=error_message
+        )
 
     def test_license_number_dont_have_postfix_with_five_numbers(self):
         form_data = {"license_number": "ABCD2345"}
         error_message = "Last 5 characters should be digits"
-        DriverFormTests.check_validate_errors(self, form_data=form_data, error_message=error_message)
+        DriverFormTests.check_validate_errors(
+            self,
+            form_data=form_data,
+            error_message=error_message
+        )
 
 
 class DriverSearchFormsTest(TestCase):
     def setUp(self):
         self.driver1 = get_user_model().objects.create_user(
             username="johnsmith",
-            license_number = "ABC12345",
+            license_number="ABC12345",
         )
         self.driver2 = get_user_model().objects.create_user(
             username="tylerderden",

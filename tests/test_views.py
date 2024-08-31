@@ -21,24 +21,21 @@ class PublicDriverTest(TestCase):
     def test_login_required_for_driver_detail(self):
         res = self.client.get(reverse(
             "taxi:driver-detail",
-            args=[self.user.id],
-            )
+            args=[self.user.id])
         )
         self.assertNotEqual(res.status_code, 200)
 
     def test_login_required_for_driver_update(self):
         res = self.client.get(reverse(
             "taxi:driver-update",
-            args=[self.user.id],
-            )
+            args=[self.user.id])
         )
         self.assertNotEqual(res.status_code, 200)
 
     def test_login_required_for_driver_delete(self):
         res = self.client.get(reverse(
             "taxi:driver-delete",
-            args=[self.user.id],
-            )
+            args=[self.user.id])
         )
         self.assertNotEqual(res.status_code, 200)
 
@@ -70,4 +67,3 @@ class PrivateDriverTest(TestCase):
             list(driver_list),
         )
         self.assertTemplateUsed(response, "taxi/driver_list.html")
-
